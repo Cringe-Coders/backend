@@ -5,5 +5,5 @@ from .views import *
 app_name = "events"
 
 urlpatterns = [
-    path('', BaseView.as_view()),
+    path('', baseview),
 ]
