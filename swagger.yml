@@ -90,6 +90,65 @@ paths:
         "500":
           description: internal server error
 
+  /api/token/:
+    post:
+      description: "authorization"
+      parameters:
+        - name: username
+          in: query
+          description: username
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: password
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refresh:
+                    type: string
+                    example: "token"
+                  access:
+                    type: string
+                    example: "token"
+        "401":
+          description: No active account found with the given credentials
+
+  /api/token/refresh/:
+    post:
+      description: "refresh token"
+      parameters:
+        - name: token
+          in: query
+          description: token
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refresh:
+                    type: string
+                    example: "token"
+                  access:
+                    type: string
+                    example: "token"
+        "401":
+          description: Token is invalid or expired
 components:
   schemas:
     Events:
