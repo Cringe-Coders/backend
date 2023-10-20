@@ -1,0 +1,170 @@
+openapi: "3.0.2"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: http://127.0.0.1:8000/
+paths:
+  /api/events/:
+    get:
+      description: "get news list"
+      parameters:
+        - name: page_size
+          in: query
+          description: page
+          required: false
+          schema:
+            type: number
+            default: 1
+        # - name: limit
+        #   in: query
+        #   required: false
+        #   schema:
+        #     type: number
+        #     default: 20
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    $ref: "#/components/schemas/Events"
+                  currentPage:
+                    type: number
+                    example: 5
+                  lastPage:
+                    type: number
+                    example: 10
+  /api/event/<id>:
+    get:
+      description: "get event by id"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventItemFull"
+
+components:
+  schemas:
+    Events:
+      type: array
+      items:
+        $ref: "#/components/schemas/EventItem"
+
+    EventItem:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: "name of event"
+        participant_count:
+          type: number
+          example: 123
+        city:
+          type: string
+          example: "Tula"
+        event_time_start:
+          type: string
+          example: "2023-10-26T18:25:14Z"
+        event_time_end:
+          type: string
+          example: "2023-10-26T18:25:14Z"
+        preview:
+          type: object
+          $ref: "#/components/schemas/Preview"
+
+    EventItemFull:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: "name of event"
+        text:
+          type: string
+          example: "bio of event"
+        preview:
+          type: object
+          $ref: "#/components/schemas/Preview"
+        manager:
+          type: object
+          $ref: "#/components/schemas/Manager"
+        city:
+          type: string
+          example: "Tula"
+        street:
+          type: string
+          example: "Komsomola"
+        house:
+          type: string
+          example: "3"
+        coords:
+          type: string
+          example: "3.4243243242, 5.4324234143"
+        event_time_start:
+          type: string
+          example: "2023-10-26T18:25:14Z"
+        event_time_end:
+          type: string
+          example: "2023-10-26T18:25:14Z"
+        reg_time_end:
+          type: string
+          example: "2023-10-26T18:25:14Z"
+        time_until_reg_end:
+          type: number
+          example: 1
+        participant_count:
+          type: number
+          example: 123
+        tags:
+          type: array
+          $ref: "#/components/schemas/Tag"
+
+    Manager:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        first_name:
+          type: string
+          example: "Elena"
+        last_name:
+          type: string
+          example: "Arefeva"
+        mail:
+          type: string
+          example: "Elena@mail.com"
+        avatar:
+          type: string
+          example: "http://127.0.0.1:8000/media/events_preview/KRvpx_QTcCg.jpg"
+        phone:
+          type: string
+          example: "+79235553424"
+
+    Tag:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: "name of event"
+
+    Preview:
+      type: object
+      properties:
+        src:
+          type: string
+          example: "/media/events_preview/KRvpx_QTcCg.jpg"

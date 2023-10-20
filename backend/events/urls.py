@@ -4,6 +4,10 @@ from .views import *
 
 app_name = "events"
 
+routers = DefaultRouter()
+routers.register(r"event", EventFullViewSet)
+
 urlpatterns = [
-    path('', baseview),
+    path("api/", include(routers.urls)),
+    path("api/events/", EventCatalogAPIView.as_view())
 ]

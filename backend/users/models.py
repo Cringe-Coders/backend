@@ -13,6 +13,7 @@ class User(AbstractUser):
     avatar = models.ImageField(blank=True, upload_to="users_photos")
     bio = models.TextField(blank=True)
     birthdate = models.DateField(blank=True, null=True)
+    phone = models.CharField(max_length=20, default="")
     objects = CustomUserManager()
 
     def get_absolute_url(self):
