@@ -5,10 +5,10 @@ from .models import Event
 
 
 class EventFilter(FilterSet):
-    name = django_filters.CharFilter(lookup_expr="icontains")
+    title = django_filters.CharFilter(lookup_expr="icontains")
 
     class Meta:
         model = Event
         fields = [
-            "name"
+            "title"
         ]

@@ -16,6 +16,17 @@ paths:
           schema:
             type: number
             default: 1
+        - name: filter
+          in: query
+          description: search text
+          required: false
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+          style: deepObject
+          explode: true
         # - name: limit
         #   in: query
         #   required: false
@@ -38,9 +49,17 @@ paths:
                   lastPage:
                     type: number
                     example: 10
+
   /api/event/<id>:
     get:
       description: "get event by id"
+      parameters:
+        - name: id
+          in: path
+          description: product id
+          required: true
+          schema:
+            type: number
       responses:
         "200":
           description: successful operation
@@ -48,6 +67,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EventItemFull"
+
+  /users/registration/:
+    post:
+      description: "registration"
+      parameters:
+        - name: username
+          in: query
+          description: username
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: password
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+        "500":
+          description: internal server error
 
 components:
   schemas:
