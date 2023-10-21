@@ -46,7 +46,7 @@ class UserProfileAPIView(APIView):
 
 class ProfileAPIView(APIView):
     def get(self, request: Request):
-        user = User.objects.get_or_none(pk=request.user.pk)
+        user = User.objects.get_or_none(pk=request.user.id)
         if user is not None:
             return Response(serializers.UserProfileSerializer(user).data, status=status.HTTP_200_OK)
         return Response({"status": "404"}, status=status.HTTP_404_NOT_FOUND)
@@ -62,7 +62,7 @@ class ProfileUpdateAPIView(APIView):
     #     return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, *args, **kwargs):
-        user = User.objects.get_or_none(pk=request.user.pk)
+        user = User.objects.get_or_none(pk=request.user.id)
         # user = User.objects.get_or_none(pk=1)
         if user is not None:
             serializer = serializers.UserProfileUpdate(data=request.data, instance=user)

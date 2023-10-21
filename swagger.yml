@@ -176,10 +176,10 @@ components:
           example: "Tula"
         event_time_start:
           type: string
-          example: "2023 10 21 13 49 41"
+          example: "2023-10-26 18:25"
         event_time_end:
           type: string
-          example: "2023 10 21 13 49 41"
+          example: "2023-10-26 18:25"
         preview:
           type: object
           $ref: "#/components/schemas/Preview"
@@ -216,13 +216,13 @@ components:
           example: "3.4243243242, 5.4324234143"
         event_time_start:
           type: string
-          example: "2023 10 21 13 49 41"
+          example: "2023-10-26 18:25"
         event_time_end:
           type: string
-          example: "2023 10 21 13 49 41"
+          example: "2023-10-26 18:25"
         reg_time_end:
           type: string
-          example: "2023 10 21 13 49 41"
+          example: "2023-10-26 18:25"
         time_until_reg_end:
           type: number
           example: 1

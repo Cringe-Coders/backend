@@ -37,15 +37,15 @@ class EventFullSerializer(serializers.ModelSerializer):
 
     def get_event_time_start(self, obj: Event):
         event_time_start = Event.objects.get(pk=obj.pk).event_time_start
-        return event_time_start.strftime('%Y %m %d %H %M %S')
+        return event_time_start.strftime('%Y-%m-%d %H:%M')
 
     def get_event_time_end(self, obj: Event):
         event_time_end = Event.objects.get(pk=obj.pk).event_time_end
-        return event_time_end.strftime('%Y %m %d %H %M %S')
+        return event_time_end.strftime('%Y-%m-%d %H:%M')
 
     def get_reg_time_end(self, obj: Event):
         reg_time_end = Event.objects.get(pk=obj.pk).reg_time_end
-        return reg_time_end.strftime('%Y %m %d %H %M %S')
+        return reg_time_end.strftime('%Y-%m-%d %H:%M')
 
     def get_preview(self, obj: Event):
         event = Event.objects.get(pk=obj.pk)
@@ -91,11 +91,11 @@ class EventCatalogSerializer(serializers.ModelSerializer):
 
     def get_event_time_start(self, obj: Event):
         event_time_start = Event.objects.get(pk=obj.pk).event_time_start
-        return event_time_start.strftime('%Y %m %d %H %M %S')
+        return event_time_start.strftime('%Y-%m-%d %H:%M')
 
     def get_event_time_end(self, obj: Event):
         event_time_end = Event.objects.get(pk=obj.pk).event_time_end
-        return event_time_end.strftime('%Y %m %d %H %M %S')
+        return event_time_end.strftime('%Y-%m-%d %H:%M')
 
     def get_preview(self, obj: Event):
         event = Event.objects.get(pk=obj.pk)
@@ -105,12 +105,19 @@ class EventCatalogSerializer(serializers.ModelSerializer):
         return result
 
 
-class EventCreateSerializer(serializers.ModelSerializer):
+class EventUpdateSerializer(serializers.ModelSerializer):
     class Meta:
        model = Event
        fields = [
-           "title", "text", "city", "event_time_start", "event_time_end",
-           "street", "house", "coords", "reg_time_end", "tags", "manager"
+           "title", "text", "event_time_start", "event_time_end",
+           "reg_time_end",
        ]
 
-    tags = TagsSerializer(many=True, read_only=True)
+    def update(self, instance: Event, validated_data):
+        instance.title = validated_data.get("title", instance.title)
+        instance.text = validated_data.get("text", instance.text)
+        instance.event_time_start = validated_data.get("event_time_start", instance.event_time_start)
+        instance.event_time_end = validated_data.get("event_time_end", instance.event_time_end)
+        instance.reg_time_end = validated_data.get("reg_time_end", instance.reg_time_end)
+        instance.save()
+        return instance

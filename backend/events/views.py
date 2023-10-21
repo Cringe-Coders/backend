@@ -57,25 +57,63 @@ class RegistrationEventAPIView(APIView):
         return Response({"status": "404", "error": "User not authorized"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class CreateEvent(CreateAPIView):
-    queryset = models.Event.objects.all()
-    serializer_class = serializers.EventCreateSerializer
+# class CreateEvent(CreateAPIView):
+#     queryset = models.Event.objects.all()
+#     serializer_class = serializers.EventCreateSerializer
 
 
 class CreateEventAPIView(APIView):
+    permission_classes = (IsAuthenticated, )
+
     def post(self, request: Request):
         data = request.data
-        title = data.get("")
-        text = data.get("")
+        title = data.get("title")
+        text = data.get("text")
         manager_id = request.user.pk
-        city = data.get("")
-        street = data.get("")
-        house = data.get("")
-        coords = data.get("")
+        user = User.objects.get(pk=manager_id)
+        city = data.get("city")
+        street = data.get("street")
+        house = data.get("house")
+        coords = data.get("coords")
 
         event_time_start = data.get("event_time_start")
         event_time_end = data.get("event_time_end")
         reg_time_end = data.get("reg_time_end")
 
         # participant = data.get("")
-        tag = data.get("tag")
+        tag_income = data.get("tag")
+        tag, created = models.Tag.objects.get_or_create(title=tag_income)
+        event = models.Event.objects.create(
+            title=title,
+            text=text,
+            manager_id=manager_id,
+            city=city,
+            street=street,
+            house=house,
+            coords=coords,
+            event_time_start=event_time_start,
+            event_time_end=event_time_end,
+            reg_time_end=reg_time_end,
+        )
+        event.save()
+        event.tags.add(tag)
+        event.participant.add(user)
+        event.save()
+        return Response({"status": "200"}, status=status.HTTP_200_OK)
+
+
+class EventUpdate(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"status": "404", "error": "Method PUT not allowed"})
+        user = User.objects.get_or_none(pk=request.user.id)
+        event = models.Event.objects.get(pk=pk)
+        if user is not None and event.manager.pk == user.pk:
+            serializer = serializers.EventUpdateSerializer(data=request.data, instance=event)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({"status": "200", "post": serializer.data})
+        return Response({"status": "404", "error": "error"})
