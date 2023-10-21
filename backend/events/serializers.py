@@ -23,7 +23,7 @@ class EventFullSerializer(serializers.ModelSerializer):
             "id", "title", "text", "preview", "manager", "city", "street", "house",
             "coords", "event_time_start", "event_time_end",
             "reg_time_end", "time_until_reg_end", "participant_count", "tags",
-            "time_until_reg_end",
+            "time_until_reg_end", "price",
         ]
 
     tags = TagsSerializer(many=True, read_only=True)
@@ -81,7 +81,7 @@ class EventCatalogSerializer(serializers.ModelSerializer):
        model = Event
        fields = [
            "id", "title", "participant_count", "city", "event_time_start", "event_time_end",
-           "preview",
+           "preview", "price",
        ]
 
     participant_count = serializers.IntegerField(source="get_participant_count")
@@ -110,7 +110,7 @@ class EventUpdateSerializer(serializers.ModelSerializer):
        model = Event
        fields = [
            "title", "text", "event_time_start", "event_time_end",
-           "reg_time_end",
+           "reg_time_end", "price"
        ]
 
     def update(self, instance: Event, validated_data):
@@ -119,5 +119,6 @@ class EventUpdateSerializer(serializers.ModelSerializer):
         instance.event_time_start = validated_data.get("event_time_start", instance.event_time_start)
         instance.event_time_end = validated_data.get("event_time_end", instance.event_time_end)
         instance.reg_time_end = validated_data.get("reg_time_end", instance.reg_time_end)
+        instance.price = validated_data.get("price", instance.price)
         instance.save()
         return instance

@@ -82,6 +82,7 @@ class CreateEventAPIView(APIView):
 
         # participant = data.get("")
         tag_income = data.get("tag")
+        price = int(data.get("price"))
         tag, created = models.Tag.objects.get_or_create(title=tag_income)
         event = models.Event.objects.create(
             title=title,
@@ -94,6 +95,7 @@ class CreateEventAPIView(APIView):
             event_time_start=event_time_start,
             event_time_end=event_time_end,
             reg_time_end=reg_time_end,
+            price=price,
         )
         event.save()
         event.tags.add(tag)

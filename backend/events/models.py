@@ -24,6 +24,7 @@ class Event(models.Model):
     reg_time_end = models.DateTimeField(null=True)
     participant = models.ManyToManyField(User, related_name="events", blank=True)
     tags = models.ManyToManyField(Tag, related_name="events", blank=True)
+    price = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.title}"
