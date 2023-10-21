@@ -22,8 +22,11 @@ class EventFullSerializer(serializers.ModelSerializer):
         fields = [
             "id", "title", "text", "preview", "manager", "city", "street", "house",
             "coords", "event_time_start", "event_time_end",
-            "reg_time_end", "time_until_reg_end", "participant_count", "tags",
-            "time_until_reg_end", "price",
+            # "reg_time_end",
+            # "time_until_reg_end",
+            "participant_count", "tags",
+            # "time_until_reg_end",
+            "price",
         ]
 
     tags = TagsSerializer(many=True, read_only=True)
@@ -33,7 +36,7 @@ class EventFullSerializer(serializers.ModelSerializer):
     manager = SerializerMethodField(source="get_manager")
     event_time_start = SerializerMethodField(source="event_time_start")
     event_time_end = SerializerMethodField(source="event_time_end")
-    reg_time_end = SerializerMethodField(source="reg_time_end")
+    # reg_time_end = SerializerMethodField(source="reg_time_end")
 
     def get_event_time_start(self, obj: Event):
         event_time_start = Event.objects.get(pk=obj.pk).event_time_start
@@ -43,9 +46,9 @@ class EventFullSerializer(serializers.ModelSerializer):
         event_time_end = Event.objects.get(pk=obj.pk).event_time_end
         return event_time_end.strftime('%Y-%m-%d %H:%M')
 
-    def get_reg_time_end(self, obj: Event):
-        reg_time_end = Event.objects.get(pk=obj.pk).reg_time_end
-        return reg_time_end.strftime('%Y-%m-%d %H:%M')
+    # def get_reg_time_end(self, obj: Event):
+    #     reg_time_end = Event.objects.get(pk=obj.pk).reg_time_end
+    #     return reg_time_end.strftime('%Y-%m-%d %H:%M')
 
     def get_preview(self, obj: Event):
         event = Event.objects.get(pk=obj.pk)
@@ -54,11 +57,11 @@ class EventFullSerializer(serializers.ModelSerializer):
         }
         return result
 
-    def get_time_until_reg_end(self, obj: Event):
-        reg_time_end = Event.objects.get(pk=obj.pk).reg_time_end
-        now = datetime.now(timezone.utc)
-        delta = reg_time_end - now
-        return delta.days
+    # def get_time_until_reg_end(self, obj: Event):
+    #     reg_time_end = Event.objects.get(pk=obj.pk).reg_time_end
+    #     now = datetime.now(timezone.utc)
+    #     delta = reg_time_end - now
+    #     return delta.days
 
     def get_manager(self, obj: Event):
         manager = Event.objects.get(pk=obj.pk).manager
@@ -110,7 +113,8 @@ class EventUpdateSerializer(serializers.ModelSerializer):
        model = Event
        fields = [
            "title", "text", "event_time_start", "event_time_end",
-           "reg_time_end", "price"
+           # "reg_time_end",
+           "price"
        ]
 
     def update(self, instance: Event, validated_data):
@@ -118,7 +122,7 @@ class EventUpdateSerializer(serializers.ModelSerializer):
         instance.text = validated_data.get("text", instance.text)
         instance.event_time_start = validated_data.get("event_time_start", instance.event_time_start)
         instance.event_time_end = validated_data.get("event_time_end", instance.event_time_end)
-        instance.reg_time_end = validated_data.get("reg_time_end", instance.reg_time_end)
+        # instance.reg_time_end = validated_data.get("reg_time_end", instance.reg_time_end)
         instance.price = validated_data.get("price", instance.price)
         instance.save()
         return instance

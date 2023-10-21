@@ -21,7 +21,7 @@ class Event(models.Model):
     coords = models.CharField(max_length=100, blank=True)
     event_time_start = models.DateTimeField()
     event_time_end = models.DateTimeField(null=True)
-    reg_time_end = models.DateTimeField(null=True)
+    # reg_time_end = models.DateTimeField(null=True)
     participant = models.ManyToManyField(User, related_name="events", blank=True)
     tags = models.ManyToManyField(Tag, related_name="events", blank=True)
     price = models.IntegerField(default=0)

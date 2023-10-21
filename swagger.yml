@@ -302,61 +302,61 @@ paths:
           description: text
           required: true
           schema:
-            type: number
+            type: string
         - name: city
           in: query
           description: city
           required: true
           schema:
-            type: number
+            type: string
         - name: street
           in: query
           description: street
           required: true
           schema:
-            type: number
+            type: string
         - name: house
           in: query
           description: house
           required: true
           schema:
-            type: number
+            type: string
         - name: coords
           in: query
           description: coords
           required: true
           schema:
-            type: number
+            type: string
         - name: event_time_start
           in: query
           description: event_time_start
           required: true
           schema:
-            type: number
+            type: string
         - name: event_time_end
           in: query
           description: event_time_end
           required: true
           schema:
-            type: number
+            type: string
         - name: reg_time_end
           in: query
           description: reg_time_end
           required: true
           schema:
-            type: number
+            type: string
         - name: tag
           in: query
           description: tag
           required: true
           schema:
-            type: number
+            type: string
         - name: price
           in: query
           description: price
           required: true
           schema:
-            type: number
+            type: string
       responses:
         "200":
           description: successful operation
@@ -378,31 +378,31 @@ paths:
           description: title
           required: false
           schema:
-            type: number
+            type: string
         - name: text
           in: query
           description: text
           required: false
           schema:
-            type: number
+            type: string
         - name: event_time_start
           in: query
           description: event_time_start
           required: false
           schema:
-            type: number
+            type: string
         - name: event_time_end
           in: query
           description: event_time_end
           required: false
           schema:
-            type: number
+            type: string
         - name: reg_time_end
           in: query
           description: reg_time_end
           required: false
           schema:
-            type: number
+            type: string
         - name: price
           in: query
           description: price

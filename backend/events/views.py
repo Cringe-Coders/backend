@@ -78,7 +78,7 @@ class CreateEventAPIView(APIView):
 
         event_time_start = data.get("event_time_start")
         event_time_end = data.get("event_time_end")
-        reg_time_end = data.get("reg_time_end")
+        # reg_time_end = data.get("reg_time_end")
 
         # participant = data.get("")
         tag_income = data.get("tag")
@@ -94,7 +94,7 @@ class CreateEventAPIView(APIView):
             coords=coords,
             event_time_start=event_time_start,
             event_time_end=event_time_end,
-            reg_time_end=reg_time_end,
+            # reg_time_end=reg_time_end,
             price=price,
         )
         event.save()
