@@ -32,7 +32,7 @@ class EventFullSerializer(serializers.ModelSerializer):
     tags = TagsSerializer(many=True, read_only=True)
     preview = SerializerMethodField(source="get_preview")
     participant_count = serializers.IntegerField(source="get_participant_count")
-    time_until_reg_end = SerializerMethodField(source="get_time_until_reg_end")
+    # time_until_reg_end = SerializerMethodField(source="get_time_until_reg_end")
     manager = SerializerMethodField(source="get_manager")
     event_time_start = SerializerMethodField(source="event_time_start")
     event_time_end = SerializerMethodField(source="event_time_end")
