@@ -198,7 +198,7 @@ paths:
     get:
       tags:
         - auth
-      description: "get my profile"
+      description: "get my profile NEED TOKEN"
       responses:
         "200":
           description: successful operation
@@ -289,7 +289,7 @@ paths:
     post:
       tags:
         - events
-      description: "get user's profile by id"
+      description: "create event NEED TOKEN"
       parameters:
         - name: title
           in: query
@@ -365,7 +365,7 @@ paths:
     put:
       tags:
         - events
-      description: "get user's profile by id"
+      description: "update event by id NEED TOKEN"
       parameters:
         - name: id
           in: path
