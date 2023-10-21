@@ -6,12 +6,13 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.filters import OrderingFilter
+from rest_framework import filters
+
 
 from . import models
 from . import serializers
 from . import paginations
-from . import filters
+from . import filters as filt
 from users.models import User
 
 
@@ -26,10 +27,13 @@ class EventFullViewSet(ModelViewSet):
 class EventCatalogAPIView(ListAPIView):
     queryset = models.Event.objects.all()
     serializer_class = serializers.EventCatalogSerializer
-    pagination_class = paginations.CatalogPagination
-    filter_backends = (DjangoFilterBackend, OrderingFilter)
-    filterset_class = filters.EventFilter
-    ordering_fields = ("event_time_start",)
+    # pagination_class = paginations.CatalogPagination
+    # filterset_fields = ["title", ]
+    filter_backends = [filters.SearchFilter, ]
+    search_fields = ["title", ]
+    # filter_backends = (DjangoFilterBackend, OrderingFilter)
+    # filterset_class = filters.EventFilter
+    # ordering_fields = ("event_time_start",)
 
 
 class CountsAPIView(APIView):
