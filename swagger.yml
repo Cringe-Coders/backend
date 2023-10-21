@@ -285,6 +285,124 @@ paths:
                 type: object
                 $ref: "#/components/schemas/User"
 
+  /api/event/create/:
+    post:
+      tags:
+        - events
+      description: "get user's profile by id"
+      parameters:
+        - name: title
+          in: query
+          description: title
+          required: true
+          schema:
+            type: number
+        - name: text
+          in: query
+          description: text
+          required: true
+          schema:
+            type: number
+        - name: city
+          in: query
+          description: city
+          required: true
+          schema:
+            type: number
+        - name: street
+          in: query
+          description: street
+          required: true
+          schema:
+            type: number
+        - name: house
+          in: query
+          description: house
+          required: true
+          schema:
+            type: number
+        - name: coords
+          in: query
+          description: coords
+          required: true
+          schema:
+            type: number
+        - name: event_time_start
+          in: query
+          description: event_time_start
+          required: true
+          schema:
+            type: number
+        - name: event_time_end
+          in: query
+          description: event_time_end
+          required: true
+          schema:
+            type: number
+        - name: reg_time_end
+          in: query
+          description: reg_time_end
+          required: true
+          schema:
+            type: number
+        - name: tag
+          in: query
+          description: tag
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+
+  /api/event/<id>/update/:
+    post:
+      tags:
+        - events
+      description: "get user's profile by id"
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          schema:
+            type: number
+        - name: title
+          in: query
+          description: title
+          required: false
+          schema:
+            type: number
+        - name: text
+          in: query
+          description: text
+          required: false
+          schema:
+            type: number
+        - name: event_time_start
+          in: query
+          description: event_time_start
+          required: false
+          schema:
+            type: number
+        - name: event_time_end
+          in: query
+          description: event_time_end
+          required: false
+          schema:
+            type: number
+        - name: reg_time_end
+          in: query
+          description: reg_time_end
+          required: false
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: error
+
 components:
   schemas:
     Events:

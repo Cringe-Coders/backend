@@ -106,7 +106,7 @@ class EventUpdate(APIView):
     permission_classes = (IsAuthenticated, )
 
     def put(self, request, *args, **kwargs):
-        pk = kwargs.get("pk", None)
+        pk = kwargs.get("id", None)
         if not pk:
             return Response({"status": "404", "error": "Method PUT not allowed"})
         user = User.objects.get_or_none(pk=request.user.id)
