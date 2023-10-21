@@ -286,7 +286,7 @@ paths:
                 $ref: "#/components/schemas/User"
 
   /api/event/create/:
-    put:
+    post:
       tags:
         - events
       description: "get user's profile by id"
@@ -362,7 +362,7 @@ paths:
           description: successful operation
 
   /api/event/<id>/update/:
-    post:
+    put:
       tags:
         - events
       description: "get user's profile by id"
