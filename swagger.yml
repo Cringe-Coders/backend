@@ -7,6 +7,8 @@ servers:
 paths:
   /api/events/:
     get:
+      tags:
+        - events
       description: "get news list"
       parameters:
         - name: page
@@ -55,6 +57,8 @@ paths:
 
   /api/event/<id>:
     get:
+      tags:
+        - events
       description: "get event by id"
       parameters:
         - name: id
@@ -73,6 +77,8 @@ paths:
 
   /users/registration/:
     post:
+      tags:
+        - auth
       description: "registration"
       parameters:
         - name: email
@@ -107,6 +113,8 @@ paths:
 
   /api/token/:
     post:
+      tags:
+        - tokens
       description: "authorization"
       parameters:
         - name: username
@@ -140,6 +148,8 @@ paths:
 
   /api/token/refresh/:
     post:
+      tags:
+        - tokens
       description: "refresh token"
       parameters:
         - name: token
@@ -167,6 +177,8 @@ paths:
 
   /api/counts/:
     get:
+      tags:
+        - events
       description: "get users and events count"
       responses:
         "200":
@@ -184,6 +196,8 @@ paths:
                     example: 228
   /api/profile/:
     get:
+      tags:
+        - auth
       description: "get my profile"
       responses:
         "200":
@@ -198,6 +212,8 @@ paths:
 
   /api/profile/update/:
     put:
+      tags:
+        - auth
       description: "update profile"
       parameters:
         - name: token
@@ -250,6 +266,8 @@ paths:
 
   /api/users/<id>:
     get:
+      tags:
+        - auth
       description: "get user's profile by id"
       parameters:
         - name: id
