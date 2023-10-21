@@ -13,7 +13,7 @@ class Tag(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=150, default="Event", null=False)
     text = models.TextField(default="")
-    preview = models.ImageField(blank=True, upload_to="events_preview")
+    preview = models.ImageField(blank=True, upload_to="events_preview", default="events_preview/no_preview.jpg")
     manager = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     city = models.CharField(max_length=30, null=True)
     street = models.CharField(max_length=100, null=True)

@@ -20,11 +20,19 @@ class SignUpView(APIView):
         user_data = json.loads(request.body)
         username = user_data.get("username")
         password = user_data.get("password")
+        try:
+            first_name = user_data.get("first_name")
+            last_name = user_data.get("last_name")
+        except Exception as e:
+            return Response({"status": "400", "error": "no first/last name", "server_error": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
         user = User.objects.get_or_none(username=username)
         if user is None:
             user = User.objects.create_user(username=username, password=password)
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            return Response({"status": "200"}, status=status.HTTP_200_OK)
+        return Response({"status": "500", "error": "user already created"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class UserProfileAPIView(APIView):
@@ -32,17 +40,32 @@ class UserProfileAPIView(APIView):
         user = User.objects.get(pk=pk)
         if user is not None:
             return Response(serializers.UserProfileSerializer(user).data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"status": "404"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ProfileAPIView(APIView):
-    permission_classes = (IsAuthenticated, )
-
     def get(self, request: Request):
-        user = User.objects.get(pk=request.user.pk)
+        user = User.objects.get_or_none(pk=request.user.pk)
         if user is not None:
             return Response(serializers.UserProfileSerializer(user).data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"status": "404"}, status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request: Request):
-        pass
+
+class ProfileUpdateAPIView(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    # def post(self, request: Request):
+    #     user = User.objects.get_or_none(pk=request.user.pk)
+    #     if user is not None:
+    #         pass
+    #     return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, *args, **kwargs):
+        user = User.objects.get_or_none(pk=request.user.pk)
+        # user = User.objects.get_or_none(pk=1)
+        if user is not None:
+            serializer = serializers.UserProfileUpdate(data=request.data, instance=user)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({"post": serializer.data})
+        return Response({"status": "404", "error": "User not authorized"}, status=status.HTTP_404_NOT_FOUND)

@@ -34,3 +34,22 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 "city": event.city,
             })
         return result
+
+
+class UserProfileUpdate(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "first_name", "last_name", "bio",
+            "birthdate", "phone", "email",
+        ]
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get("first_name", instance.first_name)
+        instance.last_name = validated_data.get("last_name", instance.last_name)
+        instance.bio = validated_data.get("bio", instance.bio)
+        instance.birthdate = validated_data.get("birthdate", instance.birthdate)
+        instance.phone = validated_data.get("phone", instance.phone)
+        instance.email = validated_data.get("email", instance.email)
+        instance.save()
+        return instance

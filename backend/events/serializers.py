@@ -76,3 +76,14 @@ class EventCatalogSerializer(serializers.ModelSerializer):
             "src": event.preview.url,
         }
         return result
+
+
+class EventCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+       model = Event
+       fields = [
+           "title", "text", "city", "event_time_start", "event_time_end",
+           "street", "house", "coords", "reg_time_end", "tags", "manager"
+       ]
+
+    tags = TagsSerializer(many=True, read_only=True)
