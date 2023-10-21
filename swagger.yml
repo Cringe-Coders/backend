@@ -184,7 +184,7 @@ paths:
                     example: 228
   /api/profile/:
     get:
-      description: "get user's profile by id"
+      description: "get my profile"
       responses:
         "200":
           description: "refresh token"
@@ -196,7 +196,7 @@ paths:
 
   /api/users/<id>:
     get:
-      description: "get my profile"
+      description: "get user's profile by id"
       parameters:
         - name: id
           in: path
