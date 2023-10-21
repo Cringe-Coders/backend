@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
@@ -29,6 +31,21 @@ class EventFullSerializer(serializers.ModelSerializer):
     participant_count = serializers.IntegerField(source="get_participant_count")
     time_until_reg_end = SerializerMethodField(source="get_time_until_reg_end")
     manager = SerializerMethodField(source="get_manager")
+    event_time_start = SerializerMethodField(source="event_time_start")
+    event_time_end = SerializerMethodField(source="event_time_end")
+    reg_time_end = SerializerMethodField(source="reg_time_end")
+
+    def get_event_time_start(self, obj: Event):
+        event_time_start = Event.objects.get(pk=obj.pk).event_time_start
+        return event_time_start.strftime('%Y %m %d %H %M %S')
+
+    def get_event_time_end(self, obj: Event):
+        event_time_end = Event.objects.get(pk=obj.pk).event_time_end
+        return event_time_end.strftime('%Y %m %d %H %M %S')
+
+    def get_reg_time_end(self, obj: Event):
+        reg_time_end = Event.objects.get(pk=obj.pk).reg_time_end
+        return reg_time_end.strftime('%Y %m %d %H %M %S')
 
     def get_preview(self, obj: Event):
         event = Event.objects.get(pk=obj.pk)
@@ -69,6 +86,16 @@ class EventCatalogSerializer(serializers.ModelSerializer):
 
     participant_count = serializers.IntegerField(source="get_participant_count")
     preview = SerializerMethodField(source="get_preview")
+    event_time_start = SerializerMethodField(source="event_time_start")
+    event_time_end = SerializerMethodField(source="event_time_end")
+
+    def get_event_time_start(self, obj: Event):
+        event_time_start = Event.objects.get(pk=obj.pk).event_time_start
+        return event_time_start.strftime('%Y %m %d %H %M %S')
+
+    def get_event_time_end(self, obj: Event):
+        event_time_end = Event.objects.get(pk=obj.pk).event_time_end
+        return event_time_end.strftime('%Y %m %d %H %M %S')
 
     def get_preview(self, obj: Event):
         event = Event.objects.get(pk=obj.pk)

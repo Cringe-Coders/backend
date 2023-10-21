@@ -9,22 +9,21 @@ paths:
     get:
       description: "get news list"
       parameters:
-        - name: page_size
+        - name: page
           in: query
           description: page
           required: false
           schema:
             type: number
             default: 1
-        - name: filter
+        - name: search
           in: query
           description: search text
           required: false
           schema:
-            type: object
-            properties:
-              title:
-                type: string
+            type: string
+            default: ""
+            example: "title"
           style: deepObject
           explode: true
         # - name: limit
@@ -41,14 +40,18 @@ paths:
               schema:
                 type: object
                 properties:
-                  items:
+                  count:
+                    type: number
+                    example: 4
+                    description: "Кол-во обьектов"
+                  next:
+                    type: string
+                    example: "http://127.0.0.1:8000/api/events/?page=3"
+                  previous:
+                    type: string
+                    example: "http://127.0.0.1:8000/api/events/?page=1"
+                  results:
                     $ref: "#/components/schemas/Events"
-                  currentPage:
-                    type: number
-                    example: 5
-                  lastPage:
-                    type: number
-                    example: 10
 
   /api/event/<id>:
     get:
@@ -173,10 +176,10 @@ components:
           example: "Tula"
         event_time_start:
           type: string
-          example: "2023-10-26T18:25:14Z"
+          example: "2023 10 21 13 49 41"
         event_time_end:
           type: string
-          example: "2023-10-26T18:25:14Z"
+          example: "2023 10 21 13 49 41"
         preview:
           type: object
           $ref: "#/components/schemas/Preview"
@@ -213,13 +216,13 @@ components:
           example: "3.4243243242, 5.4324234143"
         event_time_start:
           type: string
-          example: "2023-10-26T18:25:14Z"
+          example: "2023 10 21 13 49 41"
         event_time_end:
           type: string
-          example: "2023-10-26T18:25:14Z"
+          example: "2023 10 21 13 49 41"
         reg_time_end:
           type: string
-          example: "2023-10-26T18:25:14Z"
+          example: "2023 10 21 13 49 41"
         time_until_reg_end:
           type: number
           example: 1

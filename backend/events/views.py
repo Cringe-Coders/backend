@@ -57,6 +57,25 @@ class RegistrationEventAPIView(APIView):
         return Response({"status": "404", "error": "User not authorized"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class CreateEventAPIView(CreateAPIView):
+class CreateEvent(CreateAPIView):
     queryset = models.Event.objects.all()
     serializer_class = serializers.EventCreateSerializer
+
+
+class CreateEventAPIView(APIView):
+    def post(self, request: Request):
+        data = request.data
+        title = data.get("")
+        text = data.get("")
+        manager_id = request.user.pk
+        city = data.get("")
+        street = data.get("")
+        house = data.get("")
+        coords = data.get("")
+
+        event_time_start = data.get("event_time_start")
+        event_time_end = data.get("event_time_end")
+        reg_time_end = data.get("reg_time_end")
+
+        # participant = data.get("")
+        tag = data.get("tag")
