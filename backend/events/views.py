@@ -119,3 +119,18 @@ class EventUpdate(APIView):
             serializer.save()
             return Response({"status": "200", "post": serializer.data})
         return Response({"status": "404", "error": "error"})
+
+
+class EventPreviewUpdateAPIView(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request: Request, id):
+        preview = request.FILES["preview"]
+        event = models.Event.objects.get(pk=id)
+        if request.user.pk == event.manager.pk:
+            if event.preview:
+                event.preview.delete()
+            event.preview = preview
+            event.save()
+            return Response({"status": "200"}, status=status.HTTP_200_OK)
+        return Response({"status": "404"})

@@ -415,6 +415,39 @@ paths:
         "400":
           description: error
 
+  /api/profile-avatar/update/:
+    post:
+      tags:
+        - auth
+      description: "update user's avatar"
+      parameters:
+        - name: avatar
+          in: query
+          description: new avatar
+          required: true
+          schema:
+            type: file
+      responses:
+        "200":
+          description: successful operation
+
+  /api/event/<int:pk>/preview/update/:
+    post:
+      tags:
+        - events
+      description: "update event's preview"
+      parameters:
+        - name: preview
+          in: query
+          description: new preview
+          required: true
+          schema:
+            type: file
+      responses:
+        "200":
+          description: successful operation
+        "404":
+          description: not successful operation
 components:
   schemas:
     Events:
