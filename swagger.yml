@@ -184,7 +184,26 @@ paths:
                     example: 228
   /api/profile/:
     get:
+      description: "get user's profile by id"
+      responses:
+        "200":
+          description: "refresh token"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/User"
+
+  /api/users/<id>:
+    get:
       description: "get my profile"
+      parameters:
+        - name: id
+          in: path
+          description: product id
+          required: true
+          schema:
+            type: number
       responses:
         "200":
           description: successful operation
