@@ -75,15 +75,27 @@ paths:
     post:
       description: "registration"
       parameters:
-        - name: username
+        - name: email
           in: query
-          description: username
+          description: username(email)
           required: true
           schema:
             type: string
         - name: password
           in: query
           description: password
+          required: true
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: first_name
+          required: true
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: last_name
           required: true
           schema:
             type: string
@@ -152,6 +164,25 @@ paths:
                     example: "token"
         "401":
           description: Token is invalid or expired
+
+  /api/counts/:
+    get:
+      description: "get users and events count"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events_count:
+                    type: number
+                    example: 228
+                  users_count:
+                    type: number
+                    example: 228
+
 components:
   schemas:
     Events:
