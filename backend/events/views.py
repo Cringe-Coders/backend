@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.request import Request
@@ -77,7 +79,11 @@ class CreateEventAPIView(APIView):
         coords = data.get("coords")
 
         event_time_start = data.get("event_time_start")
+        event_time_start_i = datetime.strftime(event_time_start, '%y-%m-%d %H:%M')
+
         event_time_end = data.get("event_time_end")
+        event_time_end_i = datetime.strftime(event_time_end, '%y-%m-%d %H:%M')
+
         # reg_time_end = data.get("reg_time_end")
 
         # participant = data.get("")
@@ -92,8 +98,8 @@ class CreateEventAPIView(APIView):
             street=street,
             house=house,
             coords=coords,
-            event_time_start=event_time_start,
-            event_time_end=event_time_end,
+            event_time_start=event_time_start_i,
+            event_time_end=event_time_end_i,
             # reg_time_end=reg_time_end,
             price=price,
         )
