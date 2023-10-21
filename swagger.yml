@@ -182,6 +182,17 @@ paths:
                   users_count:
                     type: number
                     example: 228
+  /api/profile/:
+    get:
+      description: "get my profile"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/User"
 
 components:
   schemas:
@@ -302,3 +313,53 @@ components:
         src:
           type: string
           example: "/media/events_preview/KRvpx_QTcCg.jpg"
+
+    MiniEvent:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: "Event title"
+        preview:
+          type: object
+          $ref: "#/components/schemas/Preview"
+        date:
+          type: string
+          example: "2023-10-26 18:25"
+        city:
+          type: string
+          example: "Tula"
+
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        first_name:
+          type: string
+          example: "Denis"
+        last_name:
+          type: string
+          example: "Davidov"
+        avatar:
+          type: string
+          example: "/media/users_photos/00kmxC_llvs.jpg"
+        bio:
+          type: string
+          example: "bio"
+        birthdate:
+          type: string
+          example: "2023-10-02"
+        phone:
+          type: string
+          example: "89156958420"
+        email:
+          type: string
+          example: "denis.71@mail.ru"
+        events:
+          type: array
+          $ref: "#/components/schemas/MiniEvent"

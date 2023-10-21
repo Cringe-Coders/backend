@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
@@ -27,10 +29,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
         for event in user_events:
             result.append({
                 "id": event.pk,
+                "title": event.title,
                 "preview": {
                     "src": event.preview.url
                 },
-                "date": event.event_time_start,
+                "date": event.event_time_start.strftime('%Y-%m-%d %H:%M'),
                 "city": event.city,
             })
         return result
