@@ -73,3 +73,14 @@ class ProfileUpdateAPIView(APIView):
             serializer.save()
             return Response({"status": "200"}, status=status.HTTP_200_OK)
         return Response({"status": "404", "error": "User not authorized"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ProfileUpdateAvatarAPIView(APIView):
+    def post(self, request: Request):
+        avatar = request.FILES["avatar"]
+        user = User.objects.get(pk=request.user.pk)
+        if user.avatar:
+            user.avatar.delete()
+        user.avatar = avatar
+        user.save()
+        return Response({"status": "200"}, status=status.HTTP_200_OK)
