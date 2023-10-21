@@ -25,6 +25,7 @@ class Event(models.Model):
     participant = models.ManyToManyField(User, related_name="events", blank=True)
     tags = models.ManyToManyField(Tag, related_name="events", blank=True)
     price = models.IntegerField(default=0)
+    moderated = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title}"

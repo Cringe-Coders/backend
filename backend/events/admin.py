@@ -10,4 +10,4 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("title", "moderated")

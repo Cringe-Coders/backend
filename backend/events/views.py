@@ -19,7 +19,7 @@ from users.models import User
 
 
 class EventFullViewSet(ModelViewSet):
-    queryset = models.Event.objects.all()
+    queryset = models.Event.objects.filter(moderated=True)
     serializer_class = serializers.EventFullSerializer
 
     def get_paginated_response(self, data):
@@ -27,7 +27,7 @@ class EventFullViewSet(ModelViewSet):
 
 
 class EventCatalogAPIView(ListAPIView):
-    queryset = models.Event.objects.all()
+    queryset = models.Event.objects.filter(moderated=True)
     serializer_class = serializers.EventCatalogSerializer
     # pagination_class = paginations.CatalogPagination
     # filterset_fields = ["title", ]
