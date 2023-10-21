@@ -51,5 +51,6 @@ class UserProfileUpdate(serializers.ModelSerializer):
         instance.birthdate = validated_data.get("birthdate", instance.birthdate)
         instance.phone = validated_data.get("phone", instance.phone)
         instance.email = validated_data.get("email", instance.email)
+        instance.username = validated_data.get("email", instance.email)
         instance.save()
         return instance

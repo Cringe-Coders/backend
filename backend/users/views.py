@@ -18,7 +18,7 @@ from . import serializers
 class SignUpView(APIView):
     def post(self, request: Request):
         user_data = json.loads(request.body)
-        username = user_data.get("username")
+        username = user_data.get("email")
         password = user_data.get("password")
         try:
             first_name = user_data.get("first_name")
@@ -30,6 +30,7 @@ class SignUpView(APIView):
             user = User.objects.create_user(username=username, password=password)
             user.first_name = first_name
             user.last_name = last_name
+            user.email = username
             user.save()
             return Response({"status": "200"}, status=status.HTTP_200_OK)
         return Response({"status": "500", "error": "user already created"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
