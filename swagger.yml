@@ -187,12 +187,66 @@ paths:
       description: "get my profile"
       responses:
         "200":
-          description: "refresh token"
+          description: successful operation
           content:
             application/json:
               schema:
                 type: object
                 $ref: "#/components/schemas/User"
+        "404":
+          description: user not found
+
+  /api/profile/update/:
+    put:
+      description: "update profile"
+      parameters:
+        - name: token
+          in: query
+          description: token
+          required: true
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: first_name
+          required: false
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: last_name
+          required: false
+          schema:
+            type: string
+        - name: bio
+          in: query
+          description: bio
+          required: false
+          schema:
+            type: string
+        - name: birthdate
+          in: query
+          description: birthdate
+          required: false
+          schema:
+            type: string
+        - name: phone
+          in: query
+          description: phone
+          required: false
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: email
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+        "404":
+          description: User not authorized
 
   /api/users/<id>:
     get:

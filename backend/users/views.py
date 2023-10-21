@@ -69,5 +69,5 @@ class ProfileUpdateAPIView(APIView):
             serializer = serializers.UserProfileUpdate(data=request.data, instance=user)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({"post": serializer.data})
+            return Response({"status": "200"}, status=status.HTTP_200_OK)
         return Response({"status": "404", "error": "User not authorized"}, status=status.HTTP_404_NOT_FOUND)
