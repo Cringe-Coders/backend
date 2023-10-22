@@ -448,6 +448,25 @@ paths:
           description: successful operation
         "404":
           description: not successful operation
+
+  /api/event/<id>/reg/:
+    post:
+      tags:
+        - auth
+      description: "update event's preview"
+      parameters:
+        - name: id
+          in: path
+          description: id event
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+        "404":
+          description: not successful operation
+
 components:
   schemas:
     Events:

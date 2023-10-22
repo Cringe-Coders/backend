@@ -14,5 +14,6 @@ urlpatterns = [
     path("api/event/create/", CreateEventAPIView.as_view()),
     path("api/event/<int:pk>/update/", EventUpdate.as_view()),
     path("api/event/<int:pk>/preview/update/", EventUpdate.as_view()),
+    path("api/event/<int:pk>/reg/", RegistrationEventAPIView.as_view()),
     # path("api/event/create/", CreateEventAPIView.as_view()),
 ]
